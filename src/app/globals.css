@@ -32,6 +32,11 @@ body {
   }
 } */
 
+.theme-purple-pink {
+  --toggle-switch-background-off: purple;
+  --toggle-switch-background-on: pink;     
+}
+
 * {
   /* outline: 1px dashed yellow; */
 }
