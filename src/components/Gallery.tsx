@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import { useState, useEffect } from 'react';
 import { db } from '../configs/firebase';
-import { getDocs, collection } from 'firebase/firestore';
+import { getDocs, collection, onSnapshot } from 'firebase/firestore';
 
 interface Post {
   id: string;
@@ -22,27 +22,43 @@ export default function Gallery() {
   const [posts, setPosts] = useState<Post[]>([]);
 
   const postCollectionRef = collection(db, 'posts');
+  const getPosts = async () => {
+    try {
+      const data = await getDocs(postCollectionRef);
+      const filteredData = data.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      })) as Post[];
+      console.log(filteredData);
+      setPosts(filteredData);
+    } catch (error) {
+      // console.log(error);
+    }
+  };
+  
+  useEffect(() => {
+    getPosts();
+  }, []);
 
   useEffect(() => {
-    const getPosts = async () => {
-      try {
-        const data = await getDocs(postCollectionRef);
-        const filteredData = data.docs.map((doc) => ({
-          ...doc.data(),
-          id: doc.id,
-        })) as Post[];
-        // console.log(filteredData);
-        setPosts(filteredData);
-      } catch (error) {
-        // console.log(error);
-      }
-    };
     getPosts();
+
+    // Subscribe to document changes
+    const unsubscribe = onSnapshot(postCollectionRef, (snapshot) => {
+      const updatedPosts = snapshot.docs.map((doc) => ({
+        ...doc.data(),
+        id: doc.id,
+      })) as Post[];
+      setPosts(updatedPosts);
+    });
+
+    // Clean up the subscription when the component is unmounted
+    return () => unsubscribe();
   }, []);
 
   return (
     <div className="w-full container mx-auto my-4 p-4">
-      <h2 className="text-3xl font-bold mb-6">Latest Freedom Wall Posts</h2>
+      <h2 className="text-3xl font-bold mb-6">Latest Submissions</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
         {posts.map((post) =>
           post
@@ -69,13 +85,17 @@ function Post(
 ) {
   function formatDate(date: FirestoreTimestamp): string {
     const timestamp = new Date(date.seconds * 1000 + date.nanoseconds / 1e6);
-    timestamp.setHours(timestamp.getHours() + 12);
+    if (timestamp.getHours() > 12) {
+      timestamp.setHours(timestamp.getHours() + 12);
+    }
     const options: Intl.DateTimeFormatOptions = {
+      timeZone: 'Asia/Manila',
       year: 'numeric',
       month: 'numeric',
       day: 'numeric',
       hour: '2-digit',
       minute: 'numeric',
+      hour12: false,
     };
     const formattedDate = timestamp.toLocaleDateString('en-PH', options);
     return formattedDate;
@@ -84,11 +104,11 @@ function Post(
   return (
     <div
       key={id}
-      className="container max-w-sm bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  hover:scale-105"
+      className="container max-w-sm h-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700  hover:scale-105"
     >
       <div className="h-full p-5 flex flex-col gap-4 justify-between">
         <h2 className="text-xs">{id}</h2>
-        <h5 className="mb-2 text-2xl font-bold tracking-tight text-pink-700 dark:text-white">
+        <h5 className="mb-2 text-2xl h-full font-bold tracking-tight text-pink-700 dark:text-white">
           {content}
         </h5>
         <div className="container">
@@ -124,3 +144,5 @@ function Post(
     </div>
   );
 }
+
+
