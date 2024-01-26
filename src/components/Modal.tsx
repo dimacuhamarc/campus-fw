@@ -7,6 +7,7 @@ import { Button } from './Button';
 interface ModalProps {
     openModal: boolean;
     onClose: () => void;
+    onClick?: (e: any) => void;
     title?: string;
     haveBody?: boolean;
     buttonAction?: string;
@@ -23,6 +24,7 @@ interface ModalProps {
 export const ModalComponent: React.FC<ModalProps> = ({
     openModal,
     onClose,
+    onClick,
     title,
     haveBody = true,
     buttonAction,
@@ -53,7 +55,7 @@ export const ModalComponent: React.FC<ModalProps> = ({
             <Modal.Footer className="flex items-center">
                 {/* actions */}
                 <Button label="Cancel" onClick={onClose} danger />
-                <Button label={buttonAction} action />
+                <Button label={buttonAction} onClick={onClick} action />
             </Modal.Footer>
         </Modal>
     );
