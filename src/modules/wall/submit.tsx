@@ -7,6 +7,7 @@ import { ModalComponent } from '@/components/Modal';
 import { db } from '@/configs/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useRouter } from 'next/navigation';
+import { CollegeOptions } from '@/utils/constants';
 
 const Submit = () => {
     const router = useRouter();
@@ -64,10 +65,9 @@ const Submit = () => {
                 <div className="flex items-center gap-4">
                     <label className='text-gray-500 dark:text-gray-400' htmlFor="college">College</label>
                     <select name="college" id="college" onChange={handleCollegeChange} className='w-auto rounded text-gray-500 border-pink-700'>
-                        <option value="CS">CS</option>
-                        <option value="CSS">CSS</option>
-                        <option value="CAC">CAC</option>
-                        <option value="NONE">Prefer Not To Say</option>
+                        {CollegeOptions?.map((options: any) => (
+                            <option value={options.value}>{options.label}</option>
+                        ))}
                     </select>
                 </div>
             )
