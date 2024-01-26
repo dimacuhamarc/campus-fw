@@ -52,7 +52,7 @@ export const ModalComponent: React.FC<ModalProps> = ({
             {/* modal footer */}
             <Modal.Footer className="flex items-center">
                 {/* actions */}
-                <Button label="Cancel" onClick={onClose} />
+                <Button label="Cancel" onClick={onClose} danger />
                 <Button label={buttonAction} action />
             </Modal.Footer>
         </Modal>

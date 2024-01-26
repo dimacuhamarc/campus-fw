@@ -13,6 +13,7 @@ const Submit = () => {
             <Button
                 label="Submit a Post!"
                 onClick={() => setOpenModal(true)}
+                none
             />
 
             {/* modal */}
