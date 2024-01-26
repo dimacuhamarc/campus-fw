@@ -1,3 +1,4 @@
+/* eslint-disable react/display-name */
 'use client';
 
 import cn from 'classnames';
@@ -11,6 +12,7 @@ type ButtonProps = {
     none?: any;
     onClick?: (e: any) => void;
     className?: string;
+    action?: boolean | string;
     name?: any;
     dataTestId?: string;
     loading?: boolean;
@@ -21,6 +23,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         {
             label,
             none,
+            action,
             dataTestId,
             className,
             loading = false,
@@ -34,6 +37,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 `px-4 py-2 rounded`,
                 {
                     'bg-pink-700 text-white font-semibold': !none,
+                    'bg-indigo-900 text-white font-semibold hover:bg-indigo-950': action,
                     'cursor-not-allowed opacity-80 text-white font-semibold': props.disabled,
                     'hover:bg-pink-800 hover:shadow-md': !props.disabled,
                     'focus:outline-none': !props.disabled,

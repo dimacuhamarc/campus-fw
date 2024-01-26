@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Button } from '@/components/Button';
+import { ModalComponent } from '@/components/Modal';
 
 const Submit = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
@@ -15,6 +16,12 @@ const Submit = () => {
             />
 
             {/* modal */}
+            <ModalComponent
+                openModal={openModal}
+                onClose={() => setOpenModal(false)}
+                title="Hit me with your best thought!"
+                buttonAction="Submit"
+            />
         </div>
     )
 }

@@ -1,12 +1,60 @@
 'use client';
 
-import React from 'react';
+import React, { ChangeEvent, useState } from 'react';
+import { Modal, ToggleSwitch } from 'flowbite-react';
+import { Button } from './Button';
 
-const Modal = () => {
-
-    return (
-        <div>Modal</div>
-    )
+interface ModalProps {
+    openModal: boolean;
+    onClose: () => void;
+    title?: string;
+    haveBody?: boolean;
+    buttonAction?: string;
+    handleTextChange?: (e: ChangeEvent<HTMLTextAreaElement>) => void;
+    handleCollegeChange?: (e: ChangeEvent<HTMLSelectElement>) => void;
+    handleAuthorChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+    onSubmitPost?: () => void;
+    text?: string;
+    maxLength?: number;
+    isAnon?: boolean;
+    setIsAnon?: (value: boolean) => void;
 }
 
-export default Modal;
+export const ModalComponent: React.FC<ModalProps> = ({
+    openModal,
+    onClose,
+    title,
+    haveBody = true,
+    buttonAction,
+    handleTextChange,
+    handleCollegeChange,
+    handleAuthorChange,
+    onSubmitPost,
+    text,
+    maxLength,
+    isAnon,
+    setIsAnon,
+}) => {
+    return (
+        <Modal dismissible show={openModal} onClose={onClose}>
+            {/* modal header */}
+            <Modal.Header>{title}</Modal.Header>
+
+            {/* modal body */}
+            {haveBody && (
+                <Modal.Body>
+                    <div className="space-y-6">
+                        
+                    </div>
+                </Modal.Body>
+            )}
+
+            {/* modal footer */}
+            <Modal.Footer className="flex items-center">
+                {/* actions */}
+                <Button label="Cancel" onClick={onClose} />
+                <Button label={buttonAction} action />
+            </Modal.Footer>
+        </Modal>
+    );
+};
