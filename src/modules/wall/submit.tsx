@@ -66,7 +66,7 @@ const Submit = () => {
                     <label className='text-gray-500 dark:text-gray-400' htmlFor="college">College</label>
                     <select name="college" id="college" onChange={handleCollegeChange} className='w-auto rounded text-gray-500 border-pink-700'>
                         {CollegeOptions?.map((options: any) => (
-                            <option value={options.value}>{options.label}</option>
+                            <option key={option.value} value={options.value}>{options.label}</option>
                         ))}
                     </select>
                 </div>
