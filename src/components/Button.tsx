@@ -36,7 +36,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         <button
             {...props}
             className={cn(
-                `px-4 py-2 rounded`,
+                `px-8 py-4`,
                 {
                     'bg-none text-orange-900 font-semibold hover:bg-none hover:text-orange-950': danger,
                     'bg-pink-700 text-white font-semibold': none,
