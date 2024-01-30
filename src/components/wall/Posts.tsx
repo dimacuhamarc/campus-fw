@@ -79,7 +79,7 @@ const Posts: React.FC<Post> = ({
 
                   <Link
                       href={`/post/${id}`}
-                      className="w-2/4 place-self-end inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
+                      className="w-2/4 place-self-end inline-flex items-center justify-center px-3 py-2 text-sm font-medium text-center text-white bg-pink-700 rounded-lg hover:bg-pink-800 focus:ring-4 focus:outline-none focus:ring-pink-300 dark:bg-pink-600 dark:hover:bg-pink-700 dark:focus:ring-pink-800"
                   >
                       Open Post
                       <RightIcon className="rtl:rotate-180 w-3.5 h-3.5 ms-2" />
