@@ -40,7 +40,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
                 {
                     'bg-none text-orange-900 font-semibold hover:bg-none hover:text-orange-950': danger,
                     'bg-pink-700 text-white font-semibold': none,
-                    'bg-indigo-900 text-white font-semibold hover:bg-indigo-950': action,
+                    'bg-pink-700 text-white font-semibold hover:bg-indigo-950': action,
                     'cursor-not-allowed opacity-80 text-white font-semibold': props.disabled,
                     'hover:bg-pink-800 hover:shadow-md': !props.disabled && !danger,
                     'focus:outline-none': !props.disabled,
